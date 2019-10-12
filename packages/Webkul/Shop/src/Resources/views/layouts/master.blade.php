@@ -12,8 +12,15 @@
     <meta http-equiv="content-language" content="{{ app()->getLocale() }}">
 
     <link rel="stylesheet" href="{{ bagisto_asset('css/shop.css') }}">
+    <link rel="stylesheet" href="{{ bagisto_asset('css/swankykidz.css') }}">
+    <link rel="stylesheet" href="{{ bagisto_asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ bagisto_asset('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ bagisto_asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ bagisto_asset('css/prettyPhoto.css') }}">
+    <link rel="stylesheet" href="{{ bagisto_asset('css/price-range.css') }}">
+    <link rel="stylesheet" href="{{ bagisto_asset('css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/webkul/ui/assets/css/ui.css') }}">
-
+  
     @if ($favicon = core()->getCurrentChannel()->favicon_url)
         <link rel="icon" sizes="16x16" href="{{ $favicon }}" />
     @else
@@ -36,10 +43,33 @@
 
 
 <body @if (core()->getCurrentLocale()->direction == 'rtl') class="rtl" @endif style="scroll-behavior: smooth;">
-
+    
     {!! view_render_event('bagisto.shop.layout.body.before') !!}
 
-    <div id="app">
+            
+    <div id="app" class="container">
+        <div class="row header-widget">
+            <div class="col-sm-6">
+                <div class="contactinfo">
+                    <ul class="nav nav-pills">
+                        <li><a href="#"><span style="width: 25px;"><i class="fa fa-phone"></i></span> 071 262626262</a></li>
+                        <li><a href="#"><span style="width: 25px;"><i class="fa fa-envelope"></i></span> info@swanyk.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="social-icons pull-right">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>							
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+            
+            
         <flash-wrapper ref='flashes'></flash-wrapper>
 
         <div class="main-container-wrapper">

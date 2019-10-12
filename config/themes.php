@@ -10,11 +10,11 @@ return [
             'name' => 'Default'
         ],
 
-        // 'bliss' => [
-        //     'views_path' => 'resources/themes/bliss/views',
-        //     'assets_path' => 'public/themes/bliss/assets',
-        //     'name' => 'Bliss',
-        //     'parent' => 'default'
-        // ]
+        'swankykidz' => [
+            'views_path' => 'resources/themes/swankykidz/views',
+            'assets_path' => 'public/themes/swankykidz/assets',
+            'name' => 'Swankykidz',
+            'parent' => 'default'
+        ]
     ]
 ];

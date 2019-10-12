@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Bagisto'),
+    'name' => env('APP_NAME', 'Swankykidz'),
 
     /*
     |--------------------------------------------------------------------------
@@ -247,7 +247,7 @@ return [
         Webkul\Discount\Providers\DiscountServiceProvider::class,
         Webkul\CMS\Providers\CMSServiceProvider::class,
         // ACME package
-        ACME\HelloWorld\Providers\HelloWorldServiceProvider::class,
+        //ACME\HelloWorld\Providers\HelloWorldServiceProvider::class,
     ],
 
     /*
