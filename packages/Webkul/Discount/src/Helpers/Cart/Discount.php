@@ -58,11 +58,21 @@ abstract class Discount
      */
     public function getApplicableRules($code = null)
     {
+        $rules = collect();
+
         if ($code != null) {
-            $rules = $this->cartRule->findWhere([
+            $eligibleRules = $this->cartRule->findWhere([
                 'use_coupon' => 1,
                 'status' => 1
             ]);
+
+            foreach($eligibleRules as $rule) {
+                if ($rule->coupons->code == $code) {
+                    $rules->push($rule);
+
+                    break;
+                }
+            }
         } else {
             $rules = $this->cartRule->findWhere([
                 'use_coupon' => 0,
@@ -141,6 +151,27 @@ abstract class Discount
         }
 
         return collect();
+    }
+
+    /**
+     * To find the oldes rule
+     *
+     * @param Collection $rules
+     *
+     * @return CartRule $oldestRule
+     */
+    public function findOldestRule($rules)
+    {
+        $leastID = 999999999999;
+
+        foreach ($rules as $index => $rule) {
+            if ($rule->id < $leastID) {
+                $leastID = $rule->id;
+                $oldestRule = $rule;
+            }
+        }
+
+        return $oldestRule;
     }
 
     /**
@@ -268,7 +299,7 @@ abstract class Discount
 
         $this->updateCartItemAndCart($rule);
 
-        return;
+        return $rule;
     }
 
     /**
@@ -556,23 +587,50 @@ abstract class Discount
         foreach ($itemImpacts as $itemImpact) {
             $item = $this->cartItem->findOneWhere(['id' => $itemImpact['item_id']]);
 
-            $item->update([
-                'discount_amount' => core()->convertPrice($itemImpact['discount'], $cart->cart_currency_code),
-                'base_discount_amount' => $itemImpact['discount']
-            ]);
+            if (isset($itemImpact['child_items']) && $itemImpact['child_items']->count()) {
+                foreach ($itemImpact['child_items'] as $child) {
+                    $discount = $child->discount;
 
-            if ($rule->action_type == 'percent_of_product') {
+                    unset($child->discount);
+
+                    $child->update([
+                        'discount_amount' => core()->convertPrice($discount, $cart->cart_currency_code),
+                        'base_discount_amount' => $discount
+                    ]);
+
+                    if ($rule->action_type == 'percent_of_product') {
+                        $child->update([
+                            'discount_percent' => $rule->discount_amount
+                        ]);
+                    }
+
+                    if ($rule->use_coupon) {
+                        $coupon = $rule->coupons->code;
+
+                        $child->update([
+                            'coupon_code' => $coupon
+                        ]);
+                    }
+                }
+            } else {
                 $item->update([
-                    'discount_percent' => $rule->discount_amount
+                    'discount_amount' => core()->convertPrice($itemImpact['discount'], $cart->cart_currency_code),
+                    'base_discount_amount' => $itemImpact['discount']
                 ]);
-            }
 
-            if ($rule->use_coupon) {
-                $coupon = $rule->coupons->code;
+                if ($rule->action_type == 'percent_of_product') {
+                    $item->update([
+                        'discount_percent' => $rule->discount_amount
+                    ]);
+                }
 
-                $item->update([
-                    'coupon_code' => $coupon
-                ]);
+                if ($rule->use_coupon) {
+                    $coupon = $rule->coupons->code;
+
+                    $item->update([
+                        'coupon_code' => $coupon
+                    ]);
+                }
             }
         }
 
@@ -668,7 +726,7 @@ abstract class Discount
             if (! $result) {
                 $this->clearDiscount();
 
-                $alreadyAppliedRule->delete();
+                $alreadyAppliedRule->first()->delete();
             } else {
                 $this->reassess($alreadyAppliedCartRule);
             }
@@ -748,7 +806,11 @@ abstract class Discount
         $result = true;
 
         foreach ($conditions as $condition) {
-            if (! isset($condition->attribute) || ! isset($condition->condition) || !isset($condition->value)) {
+            $result = true;
+
+            if (! isset($condition->attribute) || ! isset($condition->condition) || ! isset($condition->value) || ! isset($condition->type) || ! $condition->value != []) {
+                $result = false;
+
                 continue;
             }
 
@@ -773,55 +835,53 @@ abstract class Discount
                 $result = false;
             }
 
-            if (isset($condition->type) && ($condition->type == 'numeric' || $condition->type == 'string' || $condition->type == 'text')) {
-                if ($condition->type == 'string') {
-                    $actual_value = strtolower($actual_value);
+            if ($condition->type == 'string') {
+                $actual_value = strtolower($actual_value);
 
-                    $test_value = strtolower($test_value);
+                $test_value = strtolower($test_value);
+            }
+
+            if ($test_condition == '=') {
+                if ($actual_value != $test_value) {
+                    $result = false;
+
+                    break;
                 }
+            } else if ($test_condition == '>=') {
+                if (! ($actual_value >= $test_value)) {
+                    $result = false;
 
-                if ($test_condition == '=') {
-                    if ($actual_value != $test_value) {
-                        $result = false;
+                    break;
+                }
+            } else if ($test_condition == '<=') {
+                if (! ($actual_value <= $test_value)) {
+                    $result = false;
 
-                        break;
-                    }
-                } else if ($test_condition == '>=') {
-                    if (! ($actual_value >= $test_value)) {
-                        $result = false;
+                    break;
+                }
+            } else if ($test_condition == '>') {
+                if (! ($actual_value > $test_value)) {
+                    $result = false;
 
-                        break;
-                    }
-                } else if ($test_condition == '<=') {
-                    if (! ($actual_value <= $test_value)) {
-                        $result = false;
+                    break;
+                }
+            } else if ($test_condition == '<') {
+                if (! ($actual_value < $test_value)) {
+                    $result = false;
 
-                        break;
-                    }
-                } else if ($test_condition == '>') {
-                    if (! ($actual_value > $test_value)) {
-                        $result = false;
+                    break;
+                }
+            } else if ($test_condition == '{}') {
+                if (! str_contains($actual_value, $test_value)) {
+                    $result = false;
 
-                        break;
-                    }
-                } else if ($test_condition == '<') {
-                    if (! ($actual_value < $test_value)) {
-                        $result = false;
+                    break;
+                }
+            } else if ($test_condition == '!{}') {
+                if (str_contains($actual_value, $test_value)) {
+                    $result = false;
 
-                        break;
-                    }
-                } else if ($test_condition == '{}') {
-                    if (! str_contains($test_value, $actual_value)) {
-                        $result = false;
-
-                        break;
-                    }
-                } else if ($test_condition == '!{}') {
-                    if (str_contains($test_value, $actual_value)) {
-                        $result = false;
-
-                        break;
-                    }
+                    break;
                 }
             }
         }
@@ -878,7 +938,7 @@ abstract class Discount
         }
 
         foreach ($conditions as $condition) {
-            if (!isset($condition->attribute) || ! isset($condition->condition) || !isset($condition->value)) {
+            if (! isset($condition->attribute) || ! isset($condition->condition) || ! isset($condition->value)) {
                 continue;
             }
 
@@ -940,13 +1000,13 @@ abstract class Discount
                         break;
                     }
                 } else if ($test_condition == '{}') {
-                    if (str_contains($test_value, $actual_value)) {
+                    if (str_contains($actual_value, $test_value)) {
                         $result = true;
 
                         break;
                     }
                 } else if ($test_condition == '!{}') {
-                    if (! str_contains($test_value, $actual_value)) {
+                    if (! str_contains($actual_value, $test_value)) {
                         $result = true;
 
                         break;

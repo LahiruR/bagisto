@@ -3,20 +3,15 @@
 namespace Webkul\Discount\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Routing\Router;
 
 class DiscountServiceProvider extends ServiceProvider
 {
-    protected $commands = [
-        'Webkul\Discount\Commands\Console\ActivateCatalogRule'
-    ];
-
     /**
      * Bootstrap services.
      *
      * @return void
      */
-    public function boot(Router $router)
+    public function boot()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }
@@ -29,8 +24,6 @@ class DiscountServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerConfig();
-
-        $this->commands($this->commands);
     }
 
     /**

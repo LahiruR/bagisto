@@ -8,105 +8,98 @@ class FixedAmount extends Action
 {
     public function calculate($rule)
     {
-        $cart = \Cart::getCart();
-        $items = $cart->items;
-
         $impact = collect();
 
         $totalDiscount = 0;
 
-        if ($rule->uses_attribute_conditions) {
-            $productIDs = $rule->product_ids;
+        $eligibleItems = $this->getEligibleItems($rule);
 
-            $productIDs = explode(',', $productIDs);
+        $apply = function () use ($rule, $eligibleItems) {
+            if ($rule->action_type == 'fixed_amount') {
+                return true;
+            } else {
+                if ($rule->action_type == 'whole_cart_to_fixed' && $rule->uses_attribute_condition) {
+                    $matchIDs = explode(',', $rule->product_ids);
 
-            foreach ($productIDs as $productID) {
-                foreach ($items as $item) {
-                    $itemPrice = $item->base_price;
-
-                    if ($item->product->type == 'configurable') {
-                        $itemProductId = $item->child->product_id;
-                    } else {
-                        $itemProductId = $item->product_id;
-                    }
-
-                    $itemQuantity = $item->quantity;
-
-                    $discQuantity = $rule->disc_quantity;
-
-                    if ($discQuantity > 1) {
-                        if ($itemQuantity >= $discQuantity) {
-                            if ($rule->disc_amount > $itemPrice) {
-                                $discount = round(($itemPrice - $rule->disc_amount), 4) * $discQuantity;
-                            } else {
-                                $discount = $itemPrice;
-                            }
-                        } else if ($itemQuantity < $discQuantity) {
-                            if ($rule->disc_amount > $itemPrice) {
-                                $discount = round(($itemPrice - $rule->disc_amount), 4) * $itemQuantity;
-                            } else {
-                                $discount = $itemPrice;
+                    foreach ($matchIDs as $matchID) {
+                        foreach ($eligibleItems as $item) {
+                            if (($item->child ? $item->child->product_id : $item->product_id) == $matchID) {
+                                return true;
                             }
                         }
-                    } else {
-                        $discount = round(($itemPrice - $rule->disc_amount), 4);
                     }
 
-                    if ($itemProductId == $productID) {
-                        $totalDiscount = $totalDiscount + $discount;
-
-                        $report = array();
-
-                        $report['item_id'] = $item->id;
-                        $report['product_id'] = $item->child ? $item->child->product_id : $item->product_id;
-                        $report['discount'] = $discount;
-                        $report['formatted_discount'] = core()->currency($discount);
-
-                        $impact->push($report);
-
-                        unset($report);
-                    }
+                    return false;
+                } else {
+                    return true;
                 }
             }
-        } else {
-            foreach ($items as $item) {
+        };
+
+        if ($apply()) {
+            if ($rule->action_type == 'whole_cart_to_fixed')
+            {
+                $eligibleItems = \Cart::getCart()->items;
+            }
+
+            foreach ($eligibleItems as $item) {
                 $itemPrice = $item->base_price;
 
                 $itemQuantity = $item->quantity;
 
                 $discQuantity = $rule->disc_quantity;
 
-                if ($discQuantity > 1) {
-                    if ($itemQuantity >= $discQuantity) {
-                        $discount = round(($itemPrice - $rule->disc_amount), 4) * $discQuantity;
-                    } else if ($itemQuantity < $discQuantity) {
-                        $discount = round(($itemPrice - $rule->disc_amount), 4) * $itemQuantity;
-                    }
-                } else {
-                    $discount = round(($itemPrice - $rule->disc_amount), 4);
-                }
-
-                $totalDiscount = $totalDiscount + $discount;
+                $discQuantity = $itemQuantity <= $discQuantity ? $itemQuantity : $discQuantity;
 
                 $report = array();
 
                 $report['item_id'] = $item->id;
-                $report['product_id'] = $item->child ? $item->child->product_id : $item->product_id;
 
-                if ($discount <= $itemPrice) {
-                    $report['discount'] = $discount;
+                if ($item->product->getTypeInstance()->isComposite()) {
+                    $isQtyZero = true;
+
+                    foreach ($item->children as $children) {
+                        if ($children->quantity > 0) {
+                            $isQtyZero = false;
+                        }
+                    }
+
+                    if ($isQtyZero) {
+                        $report['product_id'] = $item->children->first()->product_id;
+
+                        $report['child_items'] = collect();
+                    } else {
+                        $report['product_id'] = $item->product_id;
+
+                        $report['child_items'] = collect();
+
+                        foreach ($item->children as $children) {
+                            $children->discount = $rule->disc_amount;
+
+                            $report['child_items']->push($children);
+                        }
+                    }
                 } else {
-                    $report['discount'] = $itemPrice;
+                    $report['product_id'] = $item->product_id;
+
+                    $report['child_items'] = collect();
                 }
+
+                $discount = round($rule->disc_amount, 4) * $discQuantity;
+
+                $discount = $discount <= $itemPrice * $discQuantity ? $discount : $itemPrice * $discQuantity;
+
+                $report['discount'] = $discount;
 
                 $report['formatted_discount'] = core()->currency($discount);
 
                 $impact->push($report);
 
+                $totalDiscount = $totalDiscount + $discount;
+
                 unset($report);
             }
         }
-
 
         $impact->discount = $totalDiscount;
         $impact->formatted_discount = core()->currency($impact->discount);

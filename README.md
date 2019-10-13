@@ -16,7 +16,8 @@
 3. [Requirements](#requirements)
 4. [Installation & Configuration](#installation-and-configuration)
 5. [License](#license)
-6. [Miscellaneous](#miscellaneous)
+6. [Security Vulnerabilities](#security-vulnerabilities)
+7. [Miscellaneous](#miscellaneous)
 
 ### Introduction
 
@@ -48,6 +49,7 @@ It packs in lots of demanding features that allows your business to scale in no 
 * Customer Cart, Wishlist, Product Reviews.
 * Simple and Configurable Products.
 * Price rules (Discount) inbuilt.
+* CMS Pages.
 * Check out [click here](https://bagisto.com/features/).
 
 **For Developers**:
@@ -63,7 +65,7 @@ Bagisto is using power of both of these frameworks and making best out of it out
 * **OS**: Ubuntu 16.04 LTS or higher / Windows 7 or Higher (WAMP / XAMP).
 * **SERVER**: Apache 2 or NGINX.
 * **RAM**: 3 GB or higher.
-* **PHP**: 7.1.17 or higher.
+* **PHP**: 7.1.3 or higher.
 * **Processor**: Clock Cycle 1 Ghz or higher.
 * **For MySQL users**: 5.7.23 or higher.
 * **For MariaDB users**: 10.2.7 or Higher.
@@ -140,7 +142,7 @@ Although, mailer environment variables are also required to be set up as **Bagis
 
 ##### On server:
 
-Warning: Before going full on production mode we recommend you to install developer dependencies.
+Warning: Before going full on production mode we recommend you to uninstall developer dependencies.
 In order to do that, run the command below:
 
 > composer install --no-dev
@@ -175,6 +177,8 @@ password:admin123
 ### License
 Bagisto is a truly opensource E-Commerce framework which will always be free under the [MIT License](https://github.com/bagisto/bagisto/blob/master/LICENSE).
 
+### Security Vulnerabilities
+Please don't disclose security vulnerabilities publicly. If you find any security vulnerability in Bagisto then please write us mail: mailto:support@bagisto.com.
 
 ### Miscellaneous
 

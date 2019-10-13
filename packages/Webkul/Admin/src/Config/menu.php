@@ -31,8 +31,13 @@ return [
         'route' => 'admin.sales.invoices.index',
         'sort' => 3,
         'icon-class' => ''
-    ],
-    [
+    ], [
+        'key' => 'sales.refunds',
+        'name' => 'admin::app.layouts.refunds',
+        'route' => 'admin.sales.refunds.index',
+        'sort' => 4,
+        'icon-class' => ''
+    ], [
         'key' => 'catalog',
         'name' => 'admin::app.layouts.catalog',
         'route' => 'admin.catalog.products.index',
@@ -42,7 +47,7 @@ return [
         'key' => 'catalog.products',
         'name' => 'admin::app.layouts.products',
         'route' => 'admin.catalog.products.index',
-        'sort' => 4,
+        'sort' => 1,
         'icon-class' => ''
     ], [
         'key' => 'catalog.categories',
@@ -54,13 +59,13 @@ return [
         'key' => 'catalog.attributes',
         'name' => 'admin::app.layouts.attributes',
         'route' => 'admin.catalog.attributes.index',
-        'sort' => 1,
+        'sort' => 2,
         'icon-class' => ''
     ], [
         'key' => 'catalog.families',
         'name' => 'admin::app.layouts.attribute-families',
         'route' => 'admin.catalog.families.index',
-        'sort' => 2,
+        'sort' => 4,
         'icon-class' => ''
     ], [
         'key' => 'customers',
@@ -198,7 +203,7 @@ return [
         'key' => 'cms',
         'name' => 'admin::app.layouts.cms',
         'route' => 'admin.cms.index',
-        'sort' => 6,
+        'sort' => 5,
         'icon-class' => 'cms-icon'
     ], [
         'key' => 'cms.pages',

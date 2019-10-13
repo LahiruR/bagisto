@@ -44,7 +44,7 @@ class WishlistController extends Controller
         auth()->setDefaultDriver($this->guard);
 
         $this->middleware('auth:' . $this->guard);
-        
+
         $this->wishlistRepository = $wishlistRepository;
 
         $this->productRepository = $productRepository;
@@ -106,7 +106,7 @@ class WishlistController extends Controller
 
         $result = Cart::moveToCart($wishlistItem);
 
-        if ($result == 1) {
+        if ($result) {
             if ($wishlistItem->delete()) {
                 Cart::collectTotals();
 
@@ -120,15 +120,10 @@ class WishlistController extends Controller
                         'error' => trans('shop::app.wishlist.move-error')
                     ], 400);
             }
-        } else if ($result == 0) {
-            return response()->json([
-                    'data' => 0,
-                    'error' => trans('shop::app.wishlist.error')
-                ], 400);
-        } else if ($result == -1) {
+        } else {
             return response()->json([
                     'data' => -1,
-                    'error' => trans('shop::app.checkout.cart.add-config-warning')
+                    'error' => trans('shop::app.wishlist.option-missing')
                 ], 400);
         }
     }

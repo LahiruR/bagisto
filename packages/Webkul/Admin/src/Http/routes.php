@@ -196,6 +196,28 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('/shipments/view/{id}', 'Webkul\Admin\Http\Controllers\Sales\ShipmentController@view')->defaults('_config', [
                     'view' => 'admin::sales.shipments.view'
                 ])->name('admin.sales.shipments.view');
+
+
+                // Sales Redunds Routes
+                Route::get('/refunds', 'Webkul\Admin\Http\Controllers\Sales\RefundController@index')->defaults('_config', [
+                    'view' => 'admin::sales.refunds.index'
+                ])->name('admin.sales.refunds.index');
+
+                Route::get('/refunds/create/{order_id}', 'Webkul\Admin\Http\Controllers\Sales\RefundController@create')->defaults('_config', [
+                    'view' => 'admin::sales.refunds.create'
+                ])->name('admin.sales.refunds.create');
+
+                Route::post('/refunds/create/{order_id}', 'Webkul\Admin\Http\Controllers\Sales\RefundController@store')->defaults('_config', [
+                    'redirect' => 'admin.sales.orders.view'
+                ])->name('admin.sales.refunds.store');
+
+                Route::post('/refunds/update-qty/{order_id}', 'Webkul\Admin\Http\Controllers\Sales\RefundController@updateQty')->defaults('_config', [
+                    'redirect' => 'admin.sales.orders.view'
+                ])->name('admin.sales.refunds.update_qty');
+
+                Route::get('/refunds/view/{id}', 'Webkul\Admin\Http\Controllers\Sales\RefundController@view')->defaults('_config', [
+                    'view' => 'admin::sales.refunds.view'
+                ])->name('admin.sales.refunds.view');
             });
 
             // Catalog Routes
@@ -223,6 +245,10 @@ Route::group(['middleware' => ['web']], function () {
                     'redirect' => 'admin.catalog.products.index'
                 ])->name('admin.catalog.products.update');
 
+                Route::post('/products/upload-file/{id}', 'Webkul\Product\Http\Controllers\ProductController@uploadLink')->name('admin.catalog.products.upload_link');
+
+                Route::post('/products/upload-sample/{id}', 'Webkul\Product\Http\Controllers\ProductController@uploadSample')->name('admin.catalog.products.upload_sample');
+                
                 //product delete
                 Route::post('/products/delete/{id}', 'Webkul\Product\Http\Controllers\ProductController@destroy')->name('admin.catalog.products.delete');
 
@@ -243,6 +269,8 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('products/search', 'Webkul\Product\Http\Controllers\ProductController@productLinkSearch')->defaults('_config', [
                     'view' => 'admin::catalog.products.edit'
                 ])->name('admin.catalog.products.productlinksearch');
+
+                Route::get('products/search-simple-products', 'Webkul\Product\Http\Controllers\ProductController@searchSimpleProducts')->name('admin.catalog.products.search_simple_product');
 
                 Route::get('/products/{id}/{attribute_id}', 'Webkul\Product\Http\Controllers\ProductController@download')->defaults('_config', [
                     'view' => 'admin.catalog.products.edit'

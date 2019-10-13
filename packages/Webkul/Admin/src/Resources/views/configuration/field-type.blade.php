@@ -73,7 +73,7 @@
             :validations = "'{{ $validations }}'"
             :depend = "'{{ $firstField }}[{{ $secondField }}][{{ $thirdField }}][{{ $dependField }}]'"
             :value = "'{{ $dependValue }}'"
-            :field_name = "'{{ $field['title'] }}'"
+            :field_name = "'{{ trans($field['title']) }}'"
             :channel_locale = "'{{ $channel_locale }}'"
             :result = "'{{ $selectedOption }}'"
         ></depends>
@@ -99,6 +99,10 @@
             @elseif ($field['type'] == 'password')
 
                 <input type="password" v-validate="'{{ $validations }}'" class="control" id="{{ $firstField }}[{{ $secondField }}][{{ $thirdField }}][{{ $field['name'] }}]" name="{{ $firstField }}[{{ $secondField }}][{{ $thirdField }}][{{ $field['name'] }}]" value="{{ old($name) ?: core()->getConfigData($name) }}" data-vv-as="&quot;{{ trans($field['title']) }}&quot;">
+
+            @elseif ($field['type'] == 'color')
+
+                <input type="color" v-validate="'{{ $validations }}'" class="control" id="{{ $firstField }}[{{ $secondField }}][{{ $thirdField }}][{{ $field['name'] }}]" name="{{ $firstField }}[{{ $secondField }}][{{ $thirdField }}][{{ $field['name'] }}]" value="{{ old($name) ?: core()->getConfigData($name) }}" data-vv-as="&quot;{{ trans($field['title']) }}&quot;">
 
 
             @elseif ($field['type'] == 'textarea')

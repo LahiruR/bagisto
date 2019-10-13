@@ -90,16 +90,17 @@
 
                     {!! view_render_event('bagisto.admin.layout.content.after') !!}
 
-                    <div class="footer">
-                        <p>
-                            @if (core()->getConfigData('general.content.footer.footer_content'))
-                                {{ core()->getConfigData('general.content.footer.footer_content') }}
-                            @else
-                                {{ trans('admin::app.footer.copy-right') }}
-                            @endif
-                        </p>
-                    </div>
-
+                    @if (core()->getConfigData('general.content.footer.footer_toggle'))
+                        <div class="footer">
+                            <p style="text-align: center;">
+                                @if (core()->getConfigData('general.content.footer.footer_content'))
+                                    {{ core()->getConfigData('general.content.footer.footer_content') }}
+                                @else
+                                    {{ trans('admin::app.footer.copy-right') }}
+                                @endif
+                            </p>
+                        </div>
+                    @endif
                 </div>
 
             </div>
@@ -117,8 +118,10 @@
             @endif
 
             window.serverErrors = [];
-            @if (count($errors))
-                window.serverErrors = @json($errors->getMessages());
+            @if (isset($errors))
+                @if (count($errors))
+                    window.serverErrors = @json($errors->getMessages());
+                @endif
             @endif
         </script>
 

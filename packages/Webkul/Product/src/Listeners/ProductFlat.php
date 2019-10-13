@@ -229,11 +229,7 @@ class ProductFlat
                             }
                         }
 
-                        if ($product->type == 'configurable' && $attribute->code == 'price') {
-                            $productFlat->{$attribute->code} = app('Webkul\Product\Helpers\Price')->getVariantMinPrice($product);
-                        } else {
-                            $productFlat->{$attribute->code} = $productAttributeValue[ProductAttributeValue::$attributeTypeFields[$attribute->type]];
-                        }
+                        $productFlat->{$attribute->code} = $productAttributeValue[ProductAttributeValue::$attributeTypeFields[$attribute->type]];
 
                         if ($attribute->type == 'select') {
                             $attributeOption = $this->attributeOptionRepository->find($product->{$attribute->code});
@@ -270,6 +266,10 @@ class ProductFlat
 
                     $productFlat->updated_at = $product->updated_at;
 
+                    $productFlat->min_price = $product->getTypeInstance()->getMinimalPrice();
+
+                    $productFlat->max_price = $product->getTypeInstance()->getMaximamPrice();
+
                     if ($parentProduct) {
                         $parentProductFlat = $this->productFlatRepository->findOneWhere([
                                 'product_id' => $parentProduct->id,
@@ -277,21 +277,24 @@ class ProductFlat
                                 'locale' => $locale->code
                             ]);
 
-                        if ($parentProductFlat) {
+                        if ($parentProductFlat)
                             $productFlat->parent_id = $parentProductFlat->id;
-                        }
                     }
 
                     $productFlat->save();
                 }
             } else {
-                $productFlat = $this->productFlatRepository->findOneWhere([
-                    'product_id' => $product->id,
-                    'channel' => $channel->code,
-                ]);
+                $route = request()->route() ? request()->route()->getName() : "";
 
-                if ($productFlat) {
-                    $this->productFlatRepository->delete($productFlat->id);
+                if ($route == 'admin.catalog.products.update') {
+                    $productFlat = $this->productFlatRepository->findOneWhere([
+                        'product_id' => $product->id,
+                        'channel' => $channel->code,
+                    ]);
+
+                    if ($productFlat) {
+                        $this->productFlatRepository->delete($productFlat->id);
+                    }
                 }
             }
         }

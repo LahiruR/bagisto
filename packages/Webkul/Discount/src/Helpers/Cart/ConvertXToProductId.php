@@ -42,6 +42,11 @@ class ConvertXToProductId
     protected $pav;
 
     /**
+     * Ignorable type from convertX
+     */
+    protected $ignorables;
+
+    /**
      * Condition symbols for matching the criteria with attributes selected
      */
     protected $symbols;
@@ -67,12 +72,21 @@ class ConvertXToProductId
 
         $this->pav = $pav;
 
+        $this->ignorable = ['configurable', 'group'];
+
         $this->conditionSymbols = config('pricerules.cart.conditions.symbols');
     }
 
+    /**
+     * Collects the attribute and category conditions
+     *
+     * @param Integer $ruleId
+     *
+     * @param Object $attrribute_conditions
+     */
     public function convertX($ruleId, $attribute_conditions)
     {
-        $attributeConditions = json_decode($attribute_conditions);
+        $attributeConditions = $attribute_conditions;
 
         $categoryValues = $attributeConditions->categories ?? null;
 
@@ -119,7 +133,7 @@ class ConvertXToProductId
         foreach ($attributeOptions as $attributeOption) {
             $selectedOptions = $attributeOption->value;
 
-            if ($attributeOption->type == 'select' || $attributeOption->type == 'multiselect') {
+            if (isset($attributeOption->type) && ($attributeOption->type == 'select' || $attributeOption->type == 'multiselect')) {
                 $attribute = $this->attribute->findWhere([
                     'code' => $attributeOption->attribute
                 ]);
@@ -157,6 +171,8 @@ class ConvertXToProductId
 
                 $selectedAttributeValues = collect();
 
+                $foundProducts = collect();
+
                 if ($attributeOption->attribute == 'sku') {
                     $testValue = $attributeOption->value;
                     $testCondition = $attributeOption->condition;
@@ -164,16 +180,18 @@ class ConvertXToProductId
                     if ($testCondition == '{}') {
                         $foundProducts = $this->product->findWhere([
                             ['sku', 'like', '%'.$testValue.'%'],
-                            ['type', '!=', 'configurable']
+                            ['type', '!=', 'configurable'],
+                            ['type', '!=', 'group']
                         ])->flatten()->all();
                     } else if ($testCondition == '!{}') {
                         $foundProducts = $this->product->findWhere([
                             ['sku', 'not like', '%'.$testValue.'%'],
-                            ['type', '!=', 'configurable']
+                            ['type', '!=', 'configurable'],
+                            ['type', '!=', 'group']
                         ])->flatten()->all();
                     } else if ($testCondition == '=') {
                         $foundProducts = $this->product->findWhere([
-                            ['sku', '=', '%'.$testValue.'%'],
+                            ['sku', '=', $testValue],
                             ['type', '!=', 'configurable']
                         ])->flatten()->all();
                     }
@@ -278,6 +296,7 @@ class ConvertXToProductId
                     ->leftJoin('products', 'product_flat.product_id', '=', 'products.id')
                     ->leftJoin('product_categories', 'products.id', '=', 'product_categories.product_id')
                     ->where('products.type', '!=', 'configurable')
+                    ->where('products.type', '!=', 'group')
                     ->whereNotNull('product_flat.url_key');
 
             if ($categoryId) {

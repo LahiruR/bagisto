@@ -166,7 +166,8 @@ return [
         'action_type' => 'نوع عملیات',
         'disc_quantity' => 'مقدار استفاده نشده',
         'disc_threshold' => 'آستانه استفاده نشده',
-        'use_coupon' => 'استافده از کوپن'
+        'use_coupon' => 'استافده از کوپن',
+        'refunded' => 'Refunded'
     ],
 
     'account' => [
@@ -289,6 +290,7 @@ return [
             'item-invoice' => 'صورت حساب (:qty_invoiced)',
             'item-shipped' => 'حمل شده (:qty_shipped)',
             'item-canceled' => 'لغو شده (:qty_canceled)',
+            'item-refunded' => 'Refunded (:qty_refunded)',
             'price' => 'قیمت',
             'total' => 'کل',
             'subtotal' => 'فرعی',
@@ -302,7 +304,9 @@ return [
             'total-paid' => 'کل پرداخت شده',
             'total-refunded' => 'بازپرداخت کل',
             'total-due' => 'بدهی کل',
-            'cancel-confirm-msg' => 'مطمئن هستید که می خواهید این سفارش را لغو کنید ؟'
+            'cancel-confirm-msg' => 'مطمئن هستید که می خواهید این سفارش را لغو کنید ؟',
+            'refunds' => 'Refunds',
+            'refunded' => 'Refunded'
         ],
 
         'invoices' => [
@@ -353,6 +357,29 @@ return [
             'creation-error' => 'حمل و نقل برای این سفارش ایجاد نمی شود.',
             'order-error' => 'ایجاد محموله سفارش مجاز نیست.',
             'quantity-invalid' => 'مقدار درخواستی نامعتبر است یا در دسترس نیست.',
+        ],
+
+        'refunds' => [
+            'title' => 'Refunds',
+            'id' => 'Id',
+            'add-title' => 'Create Refund',
+            'save-btn-title' => 'Refund',
+            'order-id' => 'Order Id',
+            'qty-ordered' => 'Qty Ordered',
+            'qty-to-refund' => 'Qty To Refund',
+            'refund-shipping' => 'Refund Shipping',
+            'adjustment-refund' => 'Adjustment Refund',
+            'adjustment-fee' => 'Adjustment Fee',
+            'update-qty' => 'Update Quantities',
+            'invalid-qty' => 'Found invalid quantity for return items.',
+            'refund-limit-error' => 'The most money available to refund is :amount.',
+            'refunded' => 'Refunded',
+            'date' => 'Refund Date',
+            'customer-name' => 'Customer Name',
+            'status' => 'Status',
+            'action' => 'Action',
+            'view-title' => 'Refund #:refund_id',
+            'invalid-refund-amount-error' => 'Refund amount should be non zero.'
         ]
     ],
 
@@ -398,7 +425,18 @@ return [
             'related-products' => 'محصولات مرتبط',
             'product-search-hint' => 'شروع به تایپ نام محصول کنید',
             'no-result-found' => 'محصولاتی با همین نام یافت نشد',
-            'searching' => 'جست و جو ...'
+            'searching' => 'جست و جو ...',
+            'bundle-items' => 'Bundle Items',
+            'add-option-btn-title' => 'Add Option',
+            'option-title' => 'Option Title',
+            'input-type' => 'Input Type',
+            'is-required' => 'Is Required',
+            'select' => 'Select',
+            'radio' => 'Radio',
+            'checkbox' => 'Checkbox',
+            'multiselect' => 'Multiselect',
+            'new-option' => 'New Option',
+            'is-default' => 'Is Default'
         ],
 
         'attributes' => [
@@ -661,6 +699,7 @@ return [
         ],
         'sliders' => [
             'title' => 'عنوان',
+            'name' => 'Name',
             'add-title' => 'افزودن اسلاید',
             'edit-title' => 'ویرایش اسلایدر',
             'save-btn-title' => 'ذخیره اسلایدر',

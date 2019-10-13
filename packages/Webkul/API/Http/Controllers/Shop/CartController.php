@@ -51,9 +51,9 @@ class CartController extends Controller
         $this->guard = request()->has('token') ? 'api' : 'customer';
 
         auth()->setDefaultDriver($this->guard);
-        
+
         // $this->middleware('auth:' . $this->guard);
-        
+
         $this->_config = request('_config');
 
         $this->cartRepository = $cartRepository;
@@ -129,7 +129,7 @@ class CartController extends Controller
 
             Event::fire('checkout.cart.item.update.before', $itemId);
 
-            Cart::updateItem($item->product_id, ['quantity' => $qty], $itemId);
+            Cart::updateItem(['quantity' => $qty], $itemId);
 
             Event::fire('checkout.cart.item.update.after', $item);
         }
@@ -152,7 +152,7 @@ class CartController extends Controller
     public function destroy()
     {
         Event::fire('checkout.cart.delete.before');
-        
+
         Cart::deActivateCart();
 
         Event::fire('checkout.cart.delete.after');
