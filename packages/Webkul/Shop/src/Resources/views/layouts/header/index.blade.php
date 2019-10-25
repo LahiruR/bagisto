@@ -1,43 +1,163 @@
+<header>
+    <div class="header_top">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="contactinfo">
+                        <ul class="nav nav-pills">
+                            <li><a href="#"><span style="width: 25px;"><i class="fa fa-phone"></i></span> 071 262626262</a></li>
+                            <li><a href="#"><span style="width: 25px;"><i class="fa fa-envelope"></i></span> info@swanyk.com</a></li>
+                        </ul>
+                    </div>
+                    {{-- /.contactinfo --}}
+                </div>
+                {{-- /.col-sm-6 --}}
+
+                <div class="col-sm-6">
+                    <div class="social-icons pull-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>							
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        </ul>
+                    </div>
+                    {{-- /.social-icons --}}
+                </div>
+                {{-- /.col-sm-6 --}}
+            </div>
+            {{-- /.row --}}
+        </div> 
+        {{-- /.container --}}
+    </div>
+    {{-- /.header_top  --}}
+
+    <div class="header-middle">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="logo pull-left">
+                        <ul class="logo-container">
+                            <li>
+                                <a href="{{ route('shop.home.index') }}">
+                                    @if ($logo = core()->getCurrentChannel()->logo_url)
+                                        <img class="logo" src="{{ $logo }}" />
+                                    @else
+                                        <img class="logo" src="{{ bagisto_asset('images/logo.jpg') }}" width="270"/>
+                                    @endif
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    {{-- /.logo --}}
+                    <div class="btn-group pull-right">
+                        <!-- <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                USA
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Canada</a></li>
+                                <li><a href="#">UK</a></li>
+                            </ul>
+                        </div>
+                         -->
+                        <!-- <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                DOLLAR
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Canadian Dollar</a></li>
+                                <li><a href="#">Pound</a></li>
+                            </ul>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="shop-menu pull-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                            <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/header-middle-->
+
+    	<div class="header-bottom">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="index.html" class="active">Home</a></li>
+								<li><a href="#">Men</a></li>
+								<li><a href="#">Women</a></li>
+								<li><a href="#">Kids</a></li>
+								
+							
+								<li class="dropdown"><a href="#">Other<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="blog.html">Other List</a></li>
+										<li><a href="blog-single.html">Cuples Tshirts</a></li>
+										<li><a href="blog-single.html">Wedding Dress</a></li>
+                                    </ul>
+                                </li> 
+								
+								
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="search_box pull-right">
+                            <ul class="search-container">
+                                <li class="search-group">
+                                    <form role="search" action="{{ route('shop.search.index') }}" method="GET" style="display: inherit;">
+                                        <input type="search" name="term" class="search-field" placeholder="{{ __('shop::app.header.search-text') }}" required>
+                                    </form>
+                                </li>
+                            </ul>
+                            <?php
+                                $query = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+                                $searchTerm = explode("&", $query);
+                    
+                                foreach($searchTerm as $term){
+                                    if (strpos($term, 'term') !== false) {
+                                        $serachQuery = $term;
+                                    }
+                                }
+                            ?>
+                
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> <!--/header-bottom-->
+</header>
+
 <div class="header" id="header">
     <div class="header-top">
+          
         <div class="left-content">
-            <ul class="logo-container">
-                <li>
-                    <a href="{{ route('shop.home.index') }}">
-                        @if ($logo = core()->getCurrentChannel()->logo_url)
-                            <img class="logo" src="{{ $logo }}" />
-                        @else
-                            <img class="logo" src="{{ bagisto_asset('images/logo.jpg') }}" width="270"/>
-                        @endif
-                    </a>
-                </li>
-            </ul>
+            
 
-            <ul class="search-container">
-                <li class="search-group">
-                    <form role="search" action="{{ route('shop.search.index') }}" method="GET" style="display: inherit;">
-                        <input type="search" name="term" class="search-field" placeholder="{{ __('shop::app.header.search-text') }}" required>
 
-                        <div class="search-icon-wrapper">
-                            <button class="" class="background: none;">
-                                <i class="icon icon-search"></i>
-                            </button>
-                        </div>
-                    </form>
-                </li>
-            </ul>
         </div>
 
-        <?php
-            $query = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
-            $searchTerm = explode("&", $query);
-
-            foreach($searchTerm as $term){
-                if (strpos($term, 'term') !== false) {
-                    $serachQuery = $term;
-                }
-            }
-        ?>
 
         <div class="right-content">
 

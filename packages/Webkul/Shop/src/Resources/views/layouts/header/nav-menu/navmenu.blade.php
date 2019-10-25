@@ -27,7 +27,8 @@ foreach (app('Webkul\Category\Repositories\CategoryRepository')->getVisibleCateg
             :key="index"
             :url="url"
             :item="item"
-            :parent="index">
+            :parent="index"
+            :Class=":class">
         </category-item>
     </ul>
 
