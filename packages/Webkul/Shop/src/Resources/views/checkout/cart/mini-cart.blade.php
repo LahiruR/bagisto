@@ -11,7 +11,7 @@
 
     <div class="dropdown-toggle">
         <a class="cart-link" href="{{ route('shop.checkout.cart.index') }}">
-            <span class="icon cart-icon"></span>
+            <i class="fa fa-shopping-cart"></i>
         </a>
 
         <span class="name">

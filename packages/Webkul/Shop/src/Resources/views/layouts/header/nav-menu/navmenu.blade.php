@@ -8,7 +8,6 @@ foreach (app('Webkul\Category\Repositories\CategoryRepository')->getVisibleCateg
     if ($category->slug)
         array_push($categories, $category);
 }
-
 ?>
 
 <category-nav categories='@json($categories)' url="{{url()->to('/')}}"></category-nav>
@@ -20,18 +19,15 @@ foreach (app('Webkul\Category\Repositories\CategoryRepository')->getVisibleCateg
 
 
 <script type="text/x-template" id="category-nav-template">
-
-    <ul class="nav">
+    <ul class="nav navbar-nav collapse navbar-collapse">
         <category-item
             v-for="(item, index) in items"
             :key="index"
             :url="url"
             :item="item"
-            :parent="index"
-            :Class=":class">
+            :parent="index">
         </category-item>
     </ul>
-
 </script>
 
 <script>
@@ -72,10 +68,7 @@ foreach (app('Webkul\Category\Repositories\CategoryRepository')->getVisibleCateg
             <i class="icon dropdown-right-icon" v-if="haveChildren && item.parent_id != null"></i>
         </a>
 
-        <i :class="[show ? 'icon icon-arrow-down mt-15' : 'icon dropdown-right-icon left mt-15']"
-        v-if="haveChildren"  @click="showOrHide"></i>
-
-        <ul v-if="haveChildren && show">
+        <ul v-if="haveChildren && show" class="sub-menu">
             <category-item
                 v-for="(child, index) in item.children"
                 :key="index"
