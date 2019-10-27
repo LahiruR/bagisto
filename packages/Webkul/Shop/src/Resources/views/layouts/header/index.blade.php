@@ -42,7 +42,7 @@
                             <li>
                                 <a href="{{ route('shop.home.index') }}">
                                     @if ($logo = core()->getCurrentChannel()->logo_url)
-                                        <img class="logo" src="{{ $logo }}" />
+                                        <img class="logo" src="{{ $logo }}" width="270" />
                                     @else
                                         <img class="logo" src="{{ bagisto_asset('images/logo.jpg') }}" width="270"/>
                                     @endif
