@@ -90,5 +90,9 @@
 
             </div>
         </div>
+        <div>
+            <p class="pull-left">Copyright © 2018 Swankykidz.lk</p>
+            <p class="pull-right">Designed by <span><a target="_blank" href="https://www.decorumtech.com">DecorumTech</a></span></p>
+        </div>
     </div>
 </div>

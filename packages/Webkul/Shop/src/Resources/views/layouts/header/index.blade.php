@@ -1,4 +1,4 @@
-<header>
+
     <div class="header_top">
         <div class="container">
             <div class="row">
@@ -211,7 +211,7 @@
 				</div>
 			</div>
 		</div> <!--/header-bottom-->
-</header>
+
 
 @push('scripts')
     <script>
