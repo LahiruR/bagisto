@@ -52,7 +52,7 @@ class CustomerController extends Controller
         ]);
 
         $data = request()->input();
-
+        
         $data = array_merge($data, [
                 'password' => bcrypt($data['password']),
                 'channel_id' => core()->getCurrentChannel()->id,

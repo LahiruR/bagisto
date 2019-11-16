@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'default' => 'default',
+    'default' => 'Swankykidz',
 
     'themes' => [
         'default' => [
@@ -14,7 +14,7 @@ return [
             'views_path' => 'resources/themes/swankykidz/views',
             'assets_path' => 'public/themes/swankykidz/assets',
             'name' => 'Swankykidz',
-            'parent' => 'default'
+            //'parent' => 'default'
         ]
     ]
 ];

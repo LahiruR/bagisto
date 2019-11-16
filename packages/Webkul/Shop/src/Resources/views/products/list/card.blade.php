@@ -6,7 +6,9 @@
         <div class="productinfo text-center">
                 @inject ('productImageHelper', 'Webkul\Product\Helpers\ProductImage')
 
-                <?php $productBaseImage = $productImageHelper->getProductBaseImage($product); ?>
+                @php 
+                    $productBaseImage = $productImageHelper->getProductBaseImage($product);
+                @endphp    
             
                 @if ($product->new)
                     <div class="sticker new">

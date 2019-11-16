@@ -19,15 +19,17 @@ foreach (app('Webkul\Category\Repositories\CategoryRepository')->getVisibleCateg
 
 
 <script type="text/x-template" id="category-nav-template">
-    <ul class="nav navbar-nav collapse navbar-collapse">
-        <category-item
-            v-for="(item, index) in items"
-            :key="index"
-            :url="url"
-            :item="item"
-            :parent="index">
-        </category-item>
-    </ul>
+    <div class="mainmenu pull-left">
+        <ul class="nav navbar-nav collapse navbar-collapse">
+            <category-item
+                v-for="(item, index) in items"
+                :key="index"
+                :url="url"
+                :item="item"
+                :parent="index">
+            </category-item>
+        </ul>
+    </div>
 </script>
 
 <script>

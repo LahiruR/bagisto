@@ -11,16 +11,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="content-language" content="{{ app()->getLocale() }}">
 
-    {{-- <link rel="stylesheet" href="{{ bagisto_asset('css/shop.css') }}"> --}}
-    <link rel="stylesheet" href="{{ bagisto_asset('css/swankykidz.css') }}">
-    <link rel="stylesheet" href="{{ bagisto_asset('swanky/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ bagisto_asset('swanky/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ bagisto_asset('swanky/css/main.css') }}">
-    <link rel="stylesheet" href="{{ bagisto_asset('swanky/css/prettyPhoto.css') }}">
-    <link rel="stylesheet" href="{{ bagisto_asset('swanky/css/price-range.css') }}">
-    <link rel="stylesheet" href="{{ bagisto_asset('swanky/css/responsive.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/webkul/ui/assets/css/ui.css') }}">
-  
+    <link rel="stylesheet" href="{{ bagisto_asset('css/shop.css') }}">
+    <link rel="stylesheet" href="{{ bagisto_asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ bagisto_asset('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ bagisto_asset('css/prettyPhoto.css') }}">
+    <link rel="stylesheet" href="{{ bagisto_asset('css/price-range.css') }}">
+    <link rel="stylesheet" href="{{ bagisto_asset('css/responsive.css') }}">
+    
     @if ($favicon = core()->getCurrentChannel()->favicon_url)
         <link rel="icon" sizes="16x16" href="{{ $favicon }}" />
     @else
@@ -37,13 +34,13 @@
 
     @stack('css')
 
-    {!! view_render_event('bagisto.shop.layout.head') !!}
+{!! view_render_event('bagisto.shop.layout.head') !!}
 
 </head>
 
 
 <body @if (core()->getCurrentLocale()->direction == 'rtl') class="rtl" @endif style="scroll-behavior: smooth;">
-    
+        
     {!! view_render_event('bagisto.shop.layout.body.before') !!}            
     <div id="app" class="container-fluid">
             
@@ -115,6 +112,14 @@
 
     <script type="text/javascript" src="{{ bagisto_asset('js/shop.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/webkul/ui/assets/js/ui.js') }}"></script>
+
+
+    <script type="text/javascript" src="{{ bagisto_asset('js/jquery.js') }}"></script>
+	<script type="text/javascript" src="{{ bagisto_asset('js/price-range.js') }}"></script>
+    <script type="text/javascript" src="{{ bagisto_asset('js/jquery.scrollUp.min.js') }}"></script>
+	<script type="text/javascript" src="{{ bagisto_asset('js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ bagisto_asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script type="text/javascript" src="{{ bagisto_asset('js/main.js') }}"></script>
 
     @stack('scripts')
 
