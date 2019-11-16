@@ -78,9 +78,9 @@
 
                     <div class="brand-logo">
                         @if (core()->getConfigData('general.design.admin_logo.logo_image'))
-                            <img src="{{ \Illuminate\Support\Facades\Storage::url(core()->getConfigData('general.design.admin_logo.logo_image')) }}" alt="Bagisto" style="height: 40px; width: 110px;"/>
+                            <img src="{{ \Illuminate\Support\Facades\Storage::url(core()->getConfigData('general.design.admin_logo.logo_image')) }}" alt="SWankyKidz.lk" style="height: 40px; width: 110px;"/>
                         @else
-                            <img src="{{ asset('vendor/webkul/ui/assets/images/logo.png') }}" style="width: 70%;" alt="Bagisto"/>
+                            <img src="{{ asset('images/logo.jpg') }}" style="width: 70%;" alt="SWankyKidz.lk"/>
                         @endif
                     </div>
 

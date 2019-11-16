@@ -1,4 +1,4 @@
-<div class="aside-nav">
+<div class="aside-nav admin-header">
     <ul>
         @if (request()->route()->getName() != 'admin.configuration.index')
             <?php $keys = explode('.', $menu->currentKey);  ?>

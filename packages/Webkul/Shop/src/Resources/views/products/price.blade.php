@@ -1,7 +1,7 @@
 {!! view_render_event('bagisto.shop.products.price.before', ['product' => $product]) !!}
 
-<div class="product-price">
+<h2>
     {!! $product->getTypeInstance()->getPriceHtml() !!}
-</div>
+</h2>
 
 {!! view_render_event('bagisto.shop.products.price.after', ['product' => $product]) !!}

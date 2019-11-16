@@ -39,9 +39,8 @@
 
 @section('content-wrapper')
     {!! view_render_event('bagisto.shop.home.content.before') !!}
-
-    {{-- {!! DbView::make($channel)->field('home_page_content')->with(['sliderData' => $sliderData])->render() !!} --}}
-    @include("shop::home.slider")
-    @include("shop::home.main-products")
+    @include("shop::home.slider", ['sliderData' => $sliderData])
+    @include("shop::home.main-categories")
+    @include("shop::home.featured-products")
     {{ view_render_event('bagisto.shop.home.content.after') }}
 @endsection

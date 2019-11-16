@@ -16,7 +16,6 @@
         @yield('css')
 
         {!! view_render_event('bagisto.admin.layout.head') !!}
-
     </head>
 
     <body @if (core()->getCurrentLocale()->direction == 'rtl') class="rtl" @endif style="scroll-behavior: smooth;">

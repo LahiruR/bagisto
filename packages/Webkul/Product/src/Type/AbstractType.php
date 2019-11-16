@@ -451,11 +451,11 @@ abstract class AbstractType
     public function getPriceHtml()
     {
         if ($this->haveSpecialPrice()) {
-            $html = '<div class="sticker sale">' . trans('shop::app.products.sale') . '</div>'
-                . '<span class="regular-price">' . core()->currency($this->product->price) . '</span>'
-                . '<span class="special-price">' . core()->currency($this->getSpecialPrice()) . '</span>';
+            $html = '<div class="regular-price">' . core()->currency($this->product->price) . '</div>'
+                    . '<div class="special-price" style="text-decoration: line-through;text-decoration-color: red;
+                    font-size: 13px;">' . core()->currency($this->getSpecialPrice()) . '</div>';
         } else {
-            $html = '<span>' . core()->currency($this->product->price) . '</span>';
+            $html = '<div>' . core()->currency($this->product->price) . '</div>';
         }
 
         return $html;
