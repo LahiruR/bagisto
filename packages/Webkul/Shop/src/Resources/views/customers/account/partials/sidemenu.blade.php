@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="sidebar list-group">
     @foreach ($menu->items as $menuItem)
         <div class="menu-block">
             <div class="menu-block-title">

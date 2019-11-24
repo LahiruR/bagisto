@@ -80,7 +80,7 @@
             <div class="filter-attributes-content">
 
                 <ol class="items" v-if="attribute.type != 'price'">
-                    <li class="item" v-for='(option, index) in attribute.options'>
+                    <li class="filter-item" v-for='(option, index) in attribute.options'>
 
                         <span class="checkbox">
                             <input type="checkbox" :id="option.id" v-bind:value="option.id" v-model="appliedFilters" @change="addFilter($event)"/>

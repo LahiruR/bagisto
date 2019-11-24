@@ -12,6 +12,7 @@
     <meta http-equiv="content-language" content="{{ app()->getLocale() }}">
 
     {{-- <link rel="stylesheet" href="{{ bagisto_asset('css/shop2.css') }}"> --}}
+
     <link rel="stylesheet" href="{{ bagisto_asset('css/shop.css') }}">
     <link rel="stylesheet" href="{{ bagisto_asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ bagisto_asset('css/font-awesome.min.css') }}">

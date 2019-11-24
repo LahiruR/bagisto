@@ -5,7 +5,13 @@
 @stop
 
 @section('content-wrapper')
-    <checkout></checkout>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <checkout></checkout>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')

@@ -10,7 +10,7 @@
 @stop
 
 
-@section('content-wrapper')
+{{-- @section('content-wrapper')
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
@@ -132,10 +132,10 @@
 
                 
 
-            </div>
+            {{-- </div> --}}
             {{-- ./col-sm-3 --}}
 
-            <div class="col-sm-9 padding-right">
+            {{-- <div class="col-sm-9 padding-right">
                     <div class="product-details"><!--product-details-->
                         <div class="col-sm-5">
                             <div class="view-product">
@@ -166,9 +166,9 @@
                                 <a href=""><img src="{{bagisto_asset('images/product-details/share.png')}}" class="share img-responsive"  alt="" /></a>
                             </div><!--/product-information-->
                         </div>
-                    </div><!--/product-details-->   
+                    </div><!--/product-details-->    --}}
 
-                    <div class="recommended_items"><!--recommended_items-->
+                    {{-- <div class="recommended_items"><!--recommended_items-->
 						<h2 class="title text-center">recommended items</h2>						
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner" style="height: 450px;padding-top: 10px; margin-bottom: 20px;">
@@ -257,15 +257,15 @@
 							  </a>			
 						</div>
 					</div><!--/recommended_items-->
-        </div>
+        </div> --}}
         {{-- ./row --}}
-    </div>
+    {{-- </div> --}}
     {{-- ./container --}}
 
 
-@endsection
+{{-- @endsection --}} 
 
-{{-- @section('content-wrapper')
+@section('content-wrapper')
 
     {!! view_render_event('bagisto.shop.products.view.before', ['product' => $product]) !!}
 
@@ -280,6 +280,7 @@
 
                     @include ('shop::products.view.gallery')
 
+                    <div class="col-sm-6">
                     <div class="details">
 
                         <div class="product-heading">
@@ -341,6 +342,8 @@
 
                         @include ('shop::products.view.reviews')
                     </div>
+                </div>
+                    {{-- ./details --}}
                 </div>
             </product-view>
         </div>
@@ -515,4 +518,4 @@
             }
         };
     </script>
-@endpush --}}
+@endpush
