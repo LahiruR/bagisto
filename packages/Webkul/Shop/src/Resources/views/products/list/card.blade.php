@@ -61,12 +61,12 @@
                 <img src="{{ bagisto_asset('images/home/new.png') }}" class="new" alt="" />
             @endif
           
-            <div class="choose">
+            {{-- <div class="choose">
                     <ul class="nav nav-pills nav-justified">
                         <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
                     </ul>
                 </div>
-            
+             --}}
             {{-- <div class="product-overlay">
                 <div class="overlay-content">
                     <p>Easy Polo Black Edition</p>

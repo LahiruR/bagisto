@@ -164,31 +164,9 @@
     background-image: url("../images/icon-dropdown.svg")
 }
 
-@-webkit-keyframes spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg)
-    }
-    to {
-        -webkit-transform: rotate(1turn);
-        transform: rotate(1turn)
-    }
-}
-
-@keyframes spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg)
-    }
-    to {
-        -webkit-transform: rotate(1turn);
-        transform: rotate(1turn)
-    }
-}
 
 body {
   font-family: 'Nanum Gothic', sans-serif;
-  background:;
   position: relative;
   font-weight:400px;
   line-height: 1.228571429;
@@ -1001,7 +979,7 @@ h2.title:before{
 
 .shipping {
   background-color: #ffffff;
-    margin-top: 40px;
+    /* margin-top: 40px; */
     overflow: hidden;
     padding-top: 20px;
     position: relative;
@@ -4590,4 +4568,61 @@ accordian div[slot*=header] {
   .account-content .control-group .control {
       width: 100%
   }
+}
+
+/* Alert */
+
+.alert-wrapper {
+  width: 300px;
+  top: 10px;
+  right: 10px;
+  position: fixed;
+  z-index: 100;
+  text-align: left
+}
+
+.alert-wrapper .alert {
+  width: 300px;
+  padding: 15px;
+  border-radius: 3px;
+  display: inline-block;
+  -webkit-box-shadow: 0 4px 15.36px .64px rgba(0, 0, 0, .1), 0 2px 6px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 4px 15.36px .64px rgba(0, 0, 0, .1), 0 2px 6px 0 rgba(0, 0, 0, .12);
+  position: relative;
+  -webkit-animation: jelly .5s ease-in-out;
+  animation: jelly .5s ease-in-out;
+  -webkit-transform-origin: center top;
+  transform-origin: center top;
+  z-index: 500;
+  margin-bottom: 10px
+}
+
+.alert-wrapper .alert.alert-error {
+  background: #fc6868
+}
+
+.alert-wrapper .alert.alert-info {
+  background: #204d74
+}
+
+.alert-wrapper .alert.alert-success {
+  background: #4caf50
+}
+
+.alert-wrapper .alert.alert-warning {
+  background: #ffc107
+}
+
+.alert-wrapper .alert .icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer
+}
+
+.alert-wrapper .alert p {
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  font-size: 15px
 }

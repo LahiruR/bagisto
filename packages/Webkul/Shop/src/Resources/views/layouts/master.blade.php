@@ -112,16 +112,16 @@
         @endif
     </script>
 
-    <script type="text/javascript" src="{{ bagisto_asset('js/shop.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/webkul/ui/assets/js/ui.js') }}"></script>
-
 
     <script type="text/javascript" src="{{ bagisto_asset('js/jquery.js') }}"></script>
 	<script type="text/javascript" src="{{ bagisto_asset('js/price-range.js') }}"></script>
     <script type="text/javascript" src="{{ bagisto_asset('js/jquery.scrollUp.min.js') }}"></script>
 	<script type="text/javascript" src="{{ bagisto_asset('js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ bagisto_asset('js/jquery.prettyPhoto.js') }}"></script>
-    <script type="text/javascript" src="{{ bagisto_asset('js/main.js') }}"></script>
+    {{-- <script type="text/javascript" src="{{ bagisto_asset('js/main.js') }}"></script> --}}
+
+    <script type="text/javascript" src="{{ bagisto_asset('js/shop.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/webkul/ui/assets/js/ui.js') }}"></script>
 
     @stack('scripts')
 
