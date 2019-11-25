@@ -5,7 +5,7 @@
                 @if (core()->getConfigData('general.design.admin_logo.logo_image'))
                     <img src="{{ \Illuminate\Support\Facades\Storage::url(core()->getConfigData('general.design.admin_logo.logo_image')) }}" alt="Swankykidz.lk" style="height: 40px; width: 110px;"/>
                 @else
-                    <img src="{{ bagisto_asset('images/logo.png') }}" style="width: 23%;" alt="Swankykidz.lk"/>
+                    <img src="{{ asset('themes/swankykidz/assets/images/logo.jpg') }}" style="width: 23%;" alt="Swankykidz.lk"/>
                 @endif
             </a>
         </div>

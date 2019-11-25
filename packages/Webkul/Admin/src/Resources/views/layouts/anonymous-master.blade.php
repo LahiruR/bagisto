@@ -80,7 +80,7 @@
                         @if (core()->getConfigData('general.design.admin_logo.logo_image'))
                             <img src="{{ \Illuminate\Support\Facades\Storage::url(core()->getConfigData('general.design.admin_logo.logo_image')) }}" alt="SWankyKidz.lk" style="height: 40px; width: 110px;"/>
                         @else
-                            <img src="{{ asset('images/logo.jpg') }}" style="width: 70%;" alt="SWankyKidz.lk"/>
+                            <img src="{{ asset('themes/swankykidz/assets/images/logo.jpg') }}" style="width: 70%;" alt="SWankyKidz.lk"/>
                         @endif
                     </div>
 

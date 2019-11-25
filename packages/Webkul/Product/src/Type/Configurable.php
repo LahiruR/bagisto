@@ -364,8 +364,11 @@ class Configurable extends AbstractType
      */
     public function getPriceHtml()
     {
-        return '<span class="price-label">' . trans('shop::app.products.price-label') . '</span>'
-            . '<span class="final-price">' . core()->currency($this->getMinimalPrice()) . '</span>';
+        // TO REMOVE PRICE LABEL
+        // return '<span class="price-label">' . trans('shop::app.products.price-label') . '</span>'
+        //     . '<span class="final-price">' . core()->currency($this->getMinimalPrice()) . '</span>';
+
+        return '<span class="final-price">' . core()->currency($this->getMinimalPrice()) . '</span>';
     }
 
     /**
