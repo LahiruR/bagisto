@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <link rel="icon" sizes="16x16" href="{{ asset('vendor/webkul/ui/assets/images/favicon.ico') }}" />
+        <link rel="icon" sizes="16x16" href="{{ asset('themes/swankykidz/assets/images/admin/favicon.ico') }}" />
 
-        <link rel="stylesheet" href="{{ asset('vendor/webkul/admin/assets/css/admin.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/webkul/ui/assets/css/ui.css') }}">
+        <link rel="stylesheet" href="{{ asset('themes/swankykidz/assets/css/admin.css') }}">
+        <link rel="stylesheet" href="{{ asset('themes/swankykidz/assets/css/ui.css') }}">
 
         <style>
             .container {
